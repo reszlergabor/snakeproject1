@@ -40,8 +40,9 @@ class FRUIT:
     def draw_fruit(self):
         # create a rectangle
         fruit_rect = pygame.Rect(self.pos.x * cell_size,self.pos.y * cell_size,cell_size,cell_size)
+        screen.blit(apple,fruit_rect)
         # draw the rectangle
-        pygame.draw.rect(screen,(126,166,114),fruit_rect)
+        #pygame.draw.rect(screen,(126,166,114),fruit_rect)
 
     def randomize(self):
         self.x = random.randint(0,cell_number - 1)
@@ -86,8 +87,6 @@ class MAIN:
 
     
 
-
-
 pygame.init()
 
 #kepernyo meretenek beallitasa
@@ -99,6 +98,8 @@ screen = pygame.display.set_mode((cell_number * cell_size,cell_number * cell_siz
 clock = pygame.time.Clock()
 
 main_game = MAIN()
+
+apple = pygame.image.load('Graphics/apple.png').convert_alpha()
 
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -127,13 +128,13 @@ while True:
         if event.type == SCREEN_UPDATE:
             main_game.update()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and main_game.snake.direction.y != 1:
                 main_game.snake.direction = Vector2(0,-1)
-            if event.key == pygame.K_DOWN:
+            if event.key == pygame.K_DOWN  and main_game.snake.direction.y != -1:
                 main_game.snake.direction = Vector2(0,1)
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT and main_game.snake.direction.x != 1:
                 main_game.snake.direction = Vector2(-1,0)
-            if event.key == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT  and main_game.snake.direction.x != -1:
                 main_game.snake.direction = Vector2(1,0)
 
     #szinezzuk a hatteret:
