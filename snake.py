@@ -53,13 +53,19 @@ class SNAKE:
             elif index == len(self.body) - 1:
                 screen.blit(self.tail,block_rect)
             else:
-                previous_block = self.body[index + 1]
-                next_block
+                previous_block = self.body[index + 1] - block
+                next_block = self.body[index - 1] - block
+                if previous_block.x == next_block.x:
+                    #ekkor ez vertikalis resze a kigyonak
+                    screen.blit(self.body_vertical,block_rect)
+                elif previous_block.y == next_block.y:
+                    #ekkor ez horizontalis resze a kigyonak
+                    screen.blit(self.body_horizontal,block_rect)
+                else:
+                    if previous_block.x == -1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == -1:
+                        screen.blit(self.body_tl,block_rect)
+                     
 
-
-
-            else:
-                pygame.draw.rect(screen,(150,100,100),block_rect)
 
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
