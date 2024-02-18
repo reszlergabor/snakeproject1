@@ -53,6 +53,12 @@ class SNAKE:
             elif index == len(self.body) - 1:
                 screen.blit(self.tail,block_rect)
             else:
+                previous_block = self.body[index + 1]
+                next_block
+
+
+
+            else:
                 pygame.draw.rect(screen,(150,100,100),block_rect)
 
     def update_head_graphics(self):
@@ -64,6 +70,9 @@ class SNAKE:
 
     def update_tail_graphics(self):
         tail_relation = self.body[len(self.body) - 1] - self.body[len(self.body) - 2]
+        #de ugyanez ez a sor is:
+        #tail_relation = self.body[-1] - self.body[-2]
+
         if tail_relation == Vector2(-1,0): self.tail = self.tail_left
         elif tail_relation == Vector2(1,0): self.tail = self.tail_right
         elif tail_relation == Vector2(0,-1): self.tail = self.tail_up
