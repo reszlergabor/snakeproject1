@@ -37,8 +37,37 @@ class SNAKE:
             #draw the rect
             pygame.draw.rect(screen,(183,111,122),block_rect)'''
         
+        self.update_head_graphics()
+        self.update_tail_graphics()
+        
         for index,block in enumerate(self.body):
-            #1. 
+            #1. Kell egy négyszög a pozícionáláshoz
+            x_pos = int(block.x * cell_size)
+            y_pos = int(block.y * cell_size)
+            block_rect = pygame.Rect(x_pos,y_pos,cell_size,cell_size)
+
+            #2. milyen irányba néz a fej?
+            if index == 0:
+                #3. kigyo fej iranyat updateljuk
+                screen.blit(self.head,block_rect)
+            elif index == len(self.body) - 1:
+                screen.blit(self.tail,block_rect)
+            else:
+                pygame.draw.rect(screen,(150,100,100),block_rect)
+
+    def update_head_graphics(self):
+        head_relation = self.body[1] - self.body[0]
+        if head_relation == Vector2(1,0): self.head = self.head_left
+        elif head_relation == Vector2(-1,0): self.head = self.head_right
+        elif head_relation == Vector2(0,1): self.head = self.head_up
+        elif head_relation == Vector2(0,-1): self.head = self.head_down
+
+    def update_tail_graphics(self):
+        tail_relation = self.body[len(self.body) - 1] - self.body[len(self.body) - 2]
+        if tail_relation == Vector2(-1,0): self.tail = self.tail_left
+        elif tail_relation == Vector2(1,0): self.tail = self.tail_right
+        elif tail_relation == Vector2(0,-1): self.tail = self.tail_up
+        elif tail_relation == Vector2(0,1): self.tail = self.tail_down
 
 
     def move_snake(self):
